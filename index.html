@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Распознование речи</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Ссылка на внешний файл CSS -->
+</head>
+<body>
+    <h1>Распознование речи</h1>
+    <div class="language-container">
+        <label for="languageSelect">Выберите язык:</label>
+        <select id="languageSelect">
+            <option value="en-US">English</option>
+            <option value="ru-RU ">Русский</option>
+        </select>
+    </div>
+    <div class="button-container">
+        <button id="startButton">Запись</button>
+        <button id="stopButton">Остановить</button>
+        <button id="saveButton">Сохранить текст</button>
+        <button id="copyButton">Копировать текст</button>
+    </div>
+    <div id="output-area">
+        <h2>Распознанный текст:</h2>
+        <div id="result"></div>
+    </div>
+    <script src="speech_recognition.js"></script>
+</body>
+</html>
