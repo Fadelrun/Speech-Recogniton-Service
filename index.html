@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Распознование речи</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ссылка на внешний файл CSS -->
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <h1>Распознование речи</h1>
@@ -24,6 +24,12 @@
     <div id="output-area">
         <h2>Распознанный текст:</h2>
         <div id="result"></div>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message"></p>
+            <button id="closeModal">OK</button>
+        </div>
     </div>
     <script src="speech_recognition.js"></script>
 </body>

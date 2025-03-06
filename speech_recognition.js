@@ -5,14 +5,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const copyButton = document.getElementById('copyButton');
     const resultDiv = document.getElementById('result');
     const languageSelect = document.getElementById('languageSelect');
-    
+    const modal = document.getElementById('modal');
+    const modalMessage = document.getElementById('modal-message');
+    const closeModal = document.getElementById('closeModal');
+
     let recognition;
     if ('webkitSpeechRecognition' in window) {
         recognition = new webkitSpeechRecognition();
     } else if ('SpeechRecognition' in window) {
         recognition = new SpeechRecognition();
     } else {
-        alert("Твой браузер не поддерживает это.");
+        showModal("Твой браузер не поддерживает это.");
         return;
     }
 
@@ -20,8 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     recognition.interimResults = true;
 
     recognition.onstart = function() {
-        console.log("Запись началась.");
-        alert("Запись началась.");
+        showModal("Запись началась.");
     };
 
     recognition.onresult = function(event) {
@@ -39,13 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     recognition.onerror = function(event) {
-        console.error("", event);
-        alert("Произошла ошибка при распознавании: " + event.error);
+        showModal("Ошибка при распознавании: " + event.error);
     };
 
     recognition.onend = function() {
-        console.log("Запись окончена.");
-        alert("Запись окончена.");
+        showModal("Запись окончена.");
     };
 
     startButton.addEventListener('click', function() {
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     saveButton.addEventListener('click', function() {
+        showModal("Текстовый файл скачивается.");
         const text = resultDiv.innerText;
         const blob = new Blob([text], { type: 'text/plain' });
         const anchor = document.createElement('a');
@@ -69,9 +70,26 @@ document.addEventListener('DOMContentLoaded', function() {
     copyButton.addEventListener('click', function() {
         const text = resultDiv.innerText;
         navigator.clipboard.writeText(text).then(function() {
-            alert('Текст скопирован');
+            showModal('Текст скопирован');
         }).catch(function(error) {
-            console.error('Ошибка в копировании: ', error);
+            showModal('Ошибка копирования: ' + error);
         });
     });
+
+    function showModal(message) {
+        modalMessage.textContent = message;
+        modal.style.display = 'flex';
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    modal.style.display = 'none';
 });
